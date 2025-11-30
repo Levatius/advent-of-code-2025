@@ -15,8 +15,8 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "aocd", specifier = "==0.1" },
-    { name = "networkx" },
-    { name = "pytest" },
+    { name = "networkx", specifier = "==3.6" },
+    { name = "pytest", specifier = "==9.0.1" },
 ]
 
 [[package]]
