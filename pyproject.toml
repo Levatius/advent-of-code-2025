@@ -1,0 +1,6 @@
+[project]
+name = "advent-of-code-2025"
+version = "0.1.0"
+description = "Collect the stars!"
+requires-python = ">=3.14"
+dependencies = ["aocd==0.1", "pytes==9.0.1", "networkx==3.6"]
