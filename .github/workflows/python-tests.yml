@@ -13,16 +13,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.13
-      uses: actions/setup-python@v3
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.14
+      uses: actions/setup-python@v5
       with:
-        python-version: "3.13"
-    - name: Install dependencies
-      run: |
-        uv sync
-    - name: Test with pytest
+        python-version: "3.14"
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v1
+      with:
+        cache-key: ${{ matrix.python-version }}-${{ hashFiles('uv.lock') }}
+    - name: Run tests
       env:
         AOC_SESSION: ${{ secrets.AOC_SESSION }}
       run: |
-        pytest
+        uv run pytest
