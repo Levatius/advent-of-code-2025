@@ -7,7 +7,20 @@ parse, part_1, part_2, puzzle_input_lines = get_aoc_imports()
 
 @pytest.fixture
 def example_1():
-    return parse([])
+    return parse(
+        [
+            "L68",
+            "L30",
+            "R48",
+            "L5",
+            "R60",
+            "L55",
+            "L1",
+            "L99",
+            "R14",
+            "L82",
+        ]
+    )
 
 
 @pytest.fixture
@@ -15,21 +28,17 @@ def puzzle_input():
     return parse(puzzle_input_lines)
 
 
-@pytest.mark.skip(reason="Not Implemented")
 def test__part_1__example_1(example_1):
-    assert part_1(example_1)
+    assert part_1(example_1) == 3
 
 
-@pytest.mark.skip(reason="Not Implemented")
 def test__part_1__puzzle_input(puzzle_input):
     print(part_1(puzzle_input))
 
 
-@pytest.mark.skip(reason="Not Implemented")
 def test__part_2__example_1(example_1):
-    assert part_2(example_1)
+    assert part_2(example_1) == 6
 
 
-@pytest.mark.skip(reason="Not Implemented")
 def test__part_2__puzzle_input(puzzle_input):
     print(part_2(puzzle_input))

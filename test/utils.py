@@ -19,7 +19,9 @@ def get_aoc_imports():
     day = int(re.search(r"\d+", caller_path.stem)[0])
     year = int(re.search(r"\d+", caller_path.parent.parent.stem)[0])
     day_filename = f"day_{day:02}"
-    module = importlib.import_module(f"src.{day_filename}", str(Path.cwd() / "src" / f"{day_filename}.py"))
+    module = importlib.import_module(
+        f"src.{day_filename}", str(Path.cwd() / "src" / f"{day_filename}.py")
+    )
     try:
         puzzle_input_lines = get_data(day=day, year=year).splitlines()
     except PuzzleLockedError:
