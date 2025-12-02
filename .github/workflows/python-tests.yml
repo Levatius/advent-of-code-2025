@@ -21,7 +21,8 @@ jobs:
 
     - uses: astral-sh/setup-uv@v1
 
-    - name: Run tests
+    - id: tests
+      name: Run tests
       env:
         AOC_SESSION: ${{ secrets.AOC_SESSION }}
       run: |
@@ -34,7 +35,7 @@ jobs:
 
     - name: Create speed report badge
       run: |
-        echo "{\"schemaVersion\": 1, \"label\": \"test speed\", \"message\": \"${{ steps.tests.outputs.duration }}s\", \"color\": \"blue\"}" > advent-of-code-2025-speed-report.json
+        echo "{\"schemaVersion\": 1, \"label\": \"All Tests Speed\", \"message\": \"${{ steps.tests.outputs.duration }}s\", \"color\": \"blue\"}" > advent-of-code-2025-speed-report.json
 
     - name: Upload speed report badge to Gist
       uses: exuanbo/actions-deploy-gist@v1
