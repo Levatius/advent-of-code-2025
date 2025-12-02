@@ -8,9 +8,9 @@ DIAL_SIZE = 100
 def parse(lines: list[str]) -> list[int]:
     rotations = []
     for line in lines:
-        direction, value_str = re.match(r"([LR])(\d+)", line).groups()
-        value = int(value_str) * ROTATION_DIRECTION_MAP[direction]
-        rotations.append(value)
+        direction, rotation_str = re.match(r"([LR])(\d+)", line).groups()
+        rotation = int(rotation_str) * ROTATION_DIRECTION_MAP[direction]
+        rotations.append(rotation)
     return rotations
 
 
