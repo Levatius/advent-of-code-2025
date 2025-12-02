@@ -14,12 +14,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
     - uses: actions/setup-python@v5
       with:
         python-version: "3.14"
+
     - uses: astral-sh/setup-uv@v1
+
     - name: Run tests
       env:
         AOC_SESSION: ${{ secrets.AOC_SESSION }}
       run: |
+        start=$(date +%s)
         uv run pytest
+        end=$(date +%s)
+        
+        duration=$((end - start))
+        echo "duration=$duration" >> $GITHUB_OUTPUT
+
+    - name: Create speed report badge
+      run: |
+        echo "{\"schemaVersion\": 1, \"label\": \"test speed\", \"message\": \"${{ steps.tests.outputs.duration }}s\", \"color\": \"blue\"}" > advent-of-code-2025-speed-report.json
+
+    - name: Upload speed report badge to Gist
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.SPEED_REPORT_GIST_TOKEN }}
+        gist_id: ${{ secrets.SPEED_REPORT_GIST_ID }}
+        file_path: advent-of-code-2025-speed-report.json
+        file_name: advent-of-code-2025-speed-report.json
