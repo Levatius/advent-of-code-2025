@@ -37,4 +37,4 @@ jobs:
       with:
         token: ${{ secrets.SPEED_REPORT_GIST_TOKEN }}
         gist_id: ${{ secrets.SPEED_REPORT_GIST_ID }}
-        file_path: advent-of-code-2025-speed-report.md
+        file_path: speed-report.md
