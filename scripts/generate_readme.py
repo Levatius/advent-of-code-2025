@@ -7,9 +7,9 @@ rows = []
 for testcase in root.iter("testcase"):
     day = re.match(r"test.test__day_(.+)", testcase.get("classname")).group(1)
     part, test = re.match(r"test__part_(.+)__(.+)", testcase.get("name")).groups()
-    time = testcase.get("time")
+    time = float(testcase.get("time"))
 
-    rows.append((day, part, test, time * 1000))
+    rows.append((day, part, test, int(time * 1000)))
 
 lines = [
     "| Day | Part | Test | Time (ms) |\n",
