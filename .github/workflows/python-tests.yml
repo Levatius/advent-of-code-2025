@@ -34,8 +34,8 @@ jobs:
 
     - name: Generate speed report markdown
       run: |
-        python scripts/generate_speed_report.py
-        speed-report.md > README.md
+        python scripts/generate_speed_report.py > speed-report.md
+        cp speed-report.md README.md
 
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v7
