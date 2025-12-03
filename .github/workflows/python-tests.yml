@@ -26,21 +26,15 @@ jobs:
       env:
         AOC_SESSION: ${{ secrets.AOC_SESSION }}
       run: |
-        start=$(date +%s)
-        uv run pytest
-        end=$(date +%s)
-        
-        duration=$((end - start))
-        echo "duration=$duration" >> $GITHUB_OUTPUT
+        uv run pytest --junitxml=speed-report.xml
 
-    - name: Create speed report badge
+    - name: Generate speed report markdown
       run: |
-        echo "{\"schemaVersion\": 1, \"label\": \"All Tests Speed\", \"message\": \"${{ steps.tests.outputs.duration }}s\", \"color\": \"blue\"}" > advent-of-code-2025-speed-report.json
+        python scripts/generate_speed_report.py > speed-report.md
 
-    - name: Upload speed report badge to Gist
+    - name: Upload speed report to Gist
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.SPEED_REPORT_GIST_TOKEN }}
         gist_id: ${{ secrets.SPEED_REPORT_GIST_ID }}
-        file_path: advent-of-code-2025-speed-report.json
-        file_name: advent-of-code-2025-speed-report.json
+        file_path: advent-of-code-2025-speed-report.md
