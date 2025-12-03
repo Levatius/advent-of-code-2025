@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class ProductIDRange:
     start: int
@@ -10,7 +11,9 @@ class ProductIDRange:
         start_str, end_str = range_str.split("-")
         return cls(int(start_str), int(end_str))
 
-    def find_invalid_product_ids(self, max_pattern_repeats: int | None = None) -> set[int]:
+    def find_invalid_product_ids(
+        self, max_pattern_repeats: int | None = None
+    ) -> set[int]:
         invalid_product_ids = set()
         start_digits = len(str(self.start))
         end_digits = len(str(self.end))
@@ -21,7 +24,7 @@ class ProductIDRange:
                 if id_digits % pattern_repeats != 0:
                     continue
                 pattern_size = id_digits // pattern_repeats
-                for pattern in range(10 ** (pattern_size - 1), 10 ** pattern_size):
+                for pattern in range(10 ** (pattern_size - 1), 10**pattern_size):
                     # Example: Pattern 12 with 3 repeats generates 121212
                     invalid_product_id = int(str(pattern) * pattern_repeats)
                     if self.start <= invalid_product_id <= self.end:
@@ -30,14 +33,18 @@ class ProductIDRange:
 
 
 def parse(lines: list[str]) -> list[ProductIDRange]:
-    product_id_ranges = [ProductIDRange.from_range_str(range_str) for range_str in lines[0].split(",")]
+    product_id_ranges = [
+        ProductIDRange.from_range_str(range_str) for range_str in lines[0].split(",")
+    ]
     return product_id_ranges
+
 
 def part_1(product_id_ranges: list[ProductIDRange]) -> int:
     total = 0
     for product_id_range in product_id_ranges:
         total += sum(product_id_range.find_invalid_product_ids(max_pattern_repeats=2))
     return total
+
 
 def part_2(product_id_ranges: list[ProductIDRange]) -> int:
     total = 0
