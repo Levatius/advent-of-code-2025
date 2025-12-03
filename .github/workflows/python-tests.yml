@@ -30,12 +30,12 @@ jobs:
       env:
         AOC_SESSION: ${{ secrets.AOC_SESSION }}
       run: |
-        uv run pytest --junitxml=speed-report.xml
+        uv run pytest --junitxml=tests-report.xml
 
-    - name: Generate speed report markdown
+    - name: Generate README
       run: |
-        python scripts/generate_speed_report.py > speed-report.md
-        cp speed-report.md README.md
+        python scripts/generate_speed_report.py
+        cp new-README.md README.md
 
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v7
