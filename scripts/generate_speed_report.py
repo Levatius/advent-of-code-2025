@@ -1,7 +1,7 @@
 import re
 from xml.etree import ElementTree
 
-root = ElementTree.parse("report.xml").getroot()
+root = ElementTree.parse("speed-report.xml").getroot()
 
 rows = []
 for testcase in root.iter("testcase"):
@@ -24,5 +24,5 @@ lines = [
 for row in rows:
   lines.append(f"| {" | ".join(row)} |\n")
 
-with open("report.md", "w") as f:
+with open("speed-report.md", "w") as f:
     f.writelines(lines)
