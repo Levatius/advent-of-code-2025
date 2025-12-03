@@ -12,8 +12,12 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - uses: actions/setup-python@v5
       with:
@@ -31,10 +35,11 @@ jobs:
     - name: Generate speed report markdown
       run: |
         python scripts/generate_speed_report.py > speed-report.md
+        speed-report.md > README.md
 
-    - name: Upload speed report to Gist
-      uses: exuanbo/actions-deploy-gist@v1
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v7
       with:
-        token: ${{ secrets.SPEED_REPORT_GIST_TOKEN }}
-        gist_id: ${{ secrets.SPEED_REPORT_GIST_ID }}
-        file_path: speed-report.md
+        commit_message: "Update README.md [skip actions]"
+        branch: primary
+        file_pattern: README.md
