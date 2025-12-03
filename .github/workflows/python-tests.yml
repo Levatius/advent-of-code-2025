@@ -34,7 +34,7 @@ jobs:
 
     - name: Generate speed report markdown
       run: |
-        python scripts/generate_speed_report.py > speed-report.md
+        python scripts/generate_speed_report.py
         speed-report.md > README.md
 
     - name: Commit and push changes
