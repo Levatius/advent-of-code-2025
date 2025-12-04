@@ -1,18 +1,19 @@
 import networkx as nx
 
-ADJACENT_DIRECTIONS = [1 + 0j, 1 + 1j, 0 + 1j, -1 + 1j, -1 + 0j, -1 - 1j, 0 - 1j, 1 - 1j]
+EDGE_DIRECTIONS = [-1 + 0j, -1 - 1j, 0 - 1j, 1 - 1j]  # Only need a subset of the full 8 directions when building edges
 FORKLIFT_ACCESS_LIMIT = 4
 
 
 def parse(lines: list[str]) -> nx.Graph:
     rolls = nx.Graph()
+    # Add rolls as nodes
     for b, line in enumerate(lines):
         for a, char in enumerate(line):
             if char == "@":
                 rolls.add_node(complex(a, b))
-
+    # Add edges between adjacent rolls
     for roll in rolls:
-        for adjacent in [roll + direction for direction in ADJACENT_DIRECTIONS]:
+        for adjacent in [roll + direction for direction in EDGE_DIRECTIONS]:
             if adjacent in rolls:
                 rolls.add_edge(roll, adjacent)
     return rolls
