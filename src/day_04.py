@@ -1,40 +1,33 @@
-from functools import lru_cache
+import networkx as nx
 
 ADJACENT_DIRECTIONS = [1 + 0j, 1 + 1j, 0 + 1j, -1 + 1j, -1 + 0j, -1 - 1j, 0 - 1j, 1 - 1j]
 FORKLIFT_ACCESS_LIMIT = 4
 
 
-def parse(lines: list[str]) -> set[complex]:
-    rolls = set()
+def parse(lines: list[str]) -> nx.Graph:
+    rolls = nx.Graph()
     for b, line in enumerate(lines):
         for a, char in enumerate(line):
             if char == "@":
-                rolls.add(complex(a, b))
+                rolls.add_node(complex(a, b))
+
+    for roll in rolls:
+        for adjacent in [roll + direction for direction in ADJACENT_DIRECTIONS]:
+            if adjacent in rolls:
+                rolls.add_edge(roll, adjacent)
     return rolls
 
 
-@lru_cache(maxsize=None)
-def get_adjacent_positions(roll: complex) -> list[complex]:
-    return [roll + direction for direction in ADJACENT_DIRECTIONS]
+def part_1(rolls: nx.Graph) -> int:
+    return len([roll for roll, adjacent_total in rolls.degree() if adjacent_total < FORKLIFT_ACCESS_LIMIT])
 
 
-def part_1(rolls: set[complex]) -> int:
-    total = 0
-    for roll in rolls:
-        if sum((adjacent in rolls) for adjacent in get_adjacent_positions(roll)) < FORKLIFT_ACCESS_LIMIT:
-            total += 1
-    return total
-
-
-def part_2(rolls: set[complex]) -> int:
+def part_2(rolls: nx.Graph) -> int:
     total = 0
     while rolls:
-        rolls_to_remove = set()
-        for roll in rolls:
-            if sum((adjacent in rolls) for adjacent in get_adjacent_positions(roll)) < FORKLIFT_ACCESS_LIMIT:
-                total += 1
-                rolls_to_remove.add(roll)
-        if not rolls_to_remove:
+        movable_rolls = [roll for roll, adjacent_total in rolls.degree() if adjacent_total < FORKLIFT_ACCESS_LIMIT]
+        if not movable_rolls:
             break
-        rolls -= rolls_to_remove
+        total += len(movable_rolls)
+        rolls.remove_nodes_from(movable_rolls)
     return total
