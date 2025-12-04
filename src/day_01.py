@@ -27,9 +27,7 @@ def part_2(rotations: list[int]) -> int:
     total = 0
     dial_current = DIAL_START
     for rotation in rotations:
-        dial_virtual = (
-            (DIAL_SIZE - dial_current) % DIAL_SIZE if rotation < 0 else dial_current
-        )
+        dial_virtual = (DIAL_SIZE - dial_current) % DIAL_SIZE if rotation < 0 else dial_current
         total += (dial_virtual + abs(rotation)) // DIAL_SIZE
         dial_current = (dial_current + rotation) % DIAL_SIZE
     return total

@@ -11,9 +11,7 @@ class ProductIDRange:
         start_str, end_str = range_str.split("-")
         return cls(int(start_str), int(end_str))
 
-    def find_invalid_product_ids(
-        self, max_pattern_repeats: int | None = None
-    ) -> set[int]:
+    def find_invalid_product_ids(self, max_pattern_repeats: int | None = None) -> set[int]:
         invalid_product_ids = set()
         start_digits = len(str(self.start))
         end_digits = len(str(self.end))
@@ -33,9 +31,7 @@ class ProductIDRange:
 
 
 def parse(lines: list[str]) -> list[ProductIDRange]:
-    product_id_ranges = [
-        ProductIDRange.from_range_str(range_str) for range_str in lines[0].split(",")
-    ]
+    product_id_ranges = [ProductIDRange.from_range_str(range_str) for range_str in lines[0].split(",")]
     return product_id_ranges
 
 
