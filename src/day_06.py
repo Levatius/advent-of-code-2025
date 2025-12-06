@@ -17,7 +17,7 @@ class Problem:
     operator: Callable
 
     @classmethod
-    def from_block(cls, block: tuple[str]):
+    def from_block(cls, block: list[str]):
         # Example: block = ["123", " 45", "  6", "*  "]
         operator_char = block[-1].strip()
         number_strs = block[:-1]
