@@ -7,10 +7,12 @@ from aocd import get_data
 from aocd.exceptions import PuzzleLockedError
 
 
-def get_caller_file() -> str:
-    frames = inspect.getouterframes(inspect.currentframe())
-    caller_file = frames[2].filename
-    return caller_file
+def get_caller_file() -> str | None:
+    frames = inspect.stack()
+    for frame in frames:
+        if "test__day" in (caller_file := frame.filename):
+            return caller_file
+    return None
 
 
 def get_aoc_imports():
