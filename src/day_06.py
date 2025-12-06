@@ -4,10 +4,7 @@ from functools import reduce
 from itertools import zip_longest
 from typing import Callable
 
-OPERATOR_MAP = {
-    "+": operator.add,
-    "*": operator.mul,
-}
+OPERATOR_MAP = {"+": operator.add, "*": operator.mul}
 
 
 @dataclass
