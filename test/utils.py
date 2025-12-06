@@ -8,7 +8,7 @@ from aocd.exceptions import PuzzleLockedError
 
 
 def get_caller_file() -> str:
-    frames = inspect.stack()
+    frames = inspect.getouterframes(inspect.currentframe())
     caller_file = frames[2].filename
     return caller_file
 
