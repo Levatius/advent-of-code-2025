@@ -1,6 +1,6 @@
 import importlib
 import re
-import inspect
+import traceback
 from pathlib import Path
 
 from aocd import get_data
@@ -8,9 +8,8 @@ from aocd.exceptions import PuzzleLockedError
 
 
 def get_caller_file() -> str | None:
-    frames = inspect.stack()
-    for frame in frames:
-        if "test__day" in (caller_file := frame.filename):
+    for frame_summary in traceback.extract_stack():
+        if "test__day" in (caller_file := frame_summary.filename):
             return caller_file
     return None
 
