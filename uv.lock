@@ -10,6 +10,7 @@ dependencies = [
     { name = "advent-of-code-data" },
     { name = "networkx" },
     { name = "portion" },
+    { name = "pulp" },
     { name = "pytest" },
     { name = "ruff" },
     { name = "shapely" },
@@ -20,6 +21,7 @@ requires-dist = [
     { name = "advent-of-code-data", specifier = "==2.1" },
     { name = "networkx", specifier = "==3.6" },
     { name = "portion", specifier = "==2.6.1" },
+    { name = "pulp", specifier = ">=3.3.0" },
     { name = "pytest", specifier = "==9.0.1" },
     { name = "ruff", specifier = "==0.14.7" },
     { name = "shapely", specifier = ">=2.1.2" },
@@ -157,6 +159,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/71/eb/fb2cc91b0214c0c6028cb4b29d309142687c740d1daf7c36c771a0aa5ac1/portion-2.6.1.tar.gz", hash = "sha256:44b1f7d57e052993c4157e519dc447e57b87a4e5e00a77c1c50e7044104e53c6", size = 61345, upload-time = "2025-05-25T13:50:46.683Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/da/9e/21c4088d1d433cfbf0578f138a6df59527dbd9e9d67355ee31b17e6dc774/portion-2.6.1-py3-none-any.whl", hash = "sha256:764d0be5479842f011feccc6f4bf80454dd944ef16309fceb2b5ae229cf05df3", size = 27389, upload-time = "2025-05-25T13:50:45.295Z" },
+]
+
+[[package]]
+name = "pulp"
+version = "3.3.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/16/1c/d880b739b841a8aa81143091c9bdda5e72e226a660aa13178cb312d4b27f/pulp-3.3.0.tar.gz", hash = "sha256:7eb99b9ce7beeb8bbb7ea9d1c919f02f003ab7867e0d1e322f2f2c26dd31c8ba", size = 16301847, upload-time = "2025-09-18T08:14:57.552Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/99/6c/64cafaceea3f99927e84b38a362ec6a8f24f33061c90bda77dfe1cd4c3c6/pulp-3.3.0-py3-none-any.whl", hash = "sha256:dd6ad2d63f196d1254eddf9dcff5cd224912c1f046120cb7c143c5b0eda63fae", size = 16387700, upload-time = "2025-09-18T08:14:53.368Z" },
 ]
 
 [[package]]

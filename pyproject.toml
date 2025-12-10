@@ -9,7 +9,8 @@ dependencies = [
     "pytest==9.0.1",
     "ruff==0.14.7",
     "networkx==3.6",
-    "shapely>=2.1.2",
+    "shapely==2.1.2",
+    "pulp==3.3.0",
 ]
 
 [tool.ruff]
