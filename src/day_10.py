@@ -3,7 +3,8 @@ import re
 from collections import Counter
 from dataclasses import dataclass
 
-import pulp
+import numpy as np
+from scipy.optimize import Bounds, LinearConstraint, milp
 
 
 @dataclass
@@ -39,20 +40,28 @@ class Machine:
         number_of_requirements = len(self.requirements)
 
         binary_button_list = [[int(i in button) for i in range(number_of_requirements)] for button in self.buttons]
-        binary_button_matrix = list(zip(*binary_button_list))
-        variables = [pulp.LpVariable(f"x_{i}", lowBound=0, cat="Integer") for i in range(number_of_buttons)]
+        A = np.array(binary_button_list).T
+        b = np.array(self.requirements)
+        c = np.ones(number_of_buttons)
 
-        # Solving linear system: binary_button_matrix * variables = requirements
-        problem = pulp.LpProblem()
-        problem += pulp.lpSum(variables)
-        for i in range(number_of_requirements):
-            problem += (
-                pulp.lpSum(binary_button_matrix[i][j] * variables[j] for j in range(number_of_buttons))
-                == self.requirements[i]
-            )
-        problem.solve(pulp.PULP_CBC_CMD(msg=False))
+        # Integer variables with lower bound 0
+        integrality = np.ones(number_of_buttons, dtype=int)
+        bounds = Bounds(lb=np.zeros(number_of_buttons), ub=np.full(number_of_buttons, np.inf))
 
-        return sum(int(variable.value()) for variable in variables)
+        # Equality constraints: A @ x == b
+        constraints = LinearConstraint(A, lb=b, ub=b)
+
+        result = milp(
+            c=c,
+            integrality=integrality,
+            bounds=bounds,
+            constraints=constraints,
+        )
+
+        # Assuming there is a solution
+        assert result.success
+
+        return int(np.sum(np.round(result.x)))
 
 
 def parse(lines: list[str]) -> list[Machine]:
