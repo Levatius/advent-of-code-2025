@@ -58,6 +58,6 @@ def part_1(presents: list[Polygon], regions: list[Region]) -> int:
     return total
 
 
-def part_2(presents: list[Polygon], regions: list[Region]) -> None:
+def part_2() -> None:
     # There is no Part 2, Christmas is saved!
     return None

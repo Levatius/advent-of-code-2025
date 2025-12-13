@@ -60,5 +60,5 @@ def test__part_1__puzzle_input(puzzle_input):
     print(part_1(*puzzle_input))
 
 
-def test__part_2__puzzle_input(puzzle_input):
-    print(part_2(*puzzle_input))
+def test__part_2__puzzle_input():
+    print(part_2())
